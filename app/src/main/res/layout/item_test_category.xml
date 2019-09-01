@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <CheckBox
+        android:id="@+id/item_test_checkbox"
+        android:checked="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/item_test_title"
+        android:layout_toRightOf="@id/item_test_checkbox"
+        android:layout_toLeftOf="@+id/cat_area_left"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시험항목"
+        android:fontFamily="@font/seoul_namsan"
+        android:textSize="17sp"
+        android:textColor="#333333"/>
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/cat_area_left"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/item_test_timeup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_keyboard_arrow_up_black_24dp"/>
+
+        <TextView
+            android:id="@+id/item_test_time"
+            android:layout_marginLeft="7.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:fontFamily="@font/seoul_namsan"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/item_test_time_minute"
+            android:layout_marginRight="7.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분"
+            android:fontFamily="@font/seoul_namsan"
+            android:textSize="17sp"/>
+
+        <ImageButton
+            android:id="@+id/item_test_timedown"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

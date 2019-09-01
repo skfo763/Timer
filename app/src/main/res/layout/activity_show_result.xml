@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowResultActivity">
+
+    <RelativeLayout
+        android:id="@+id/showresult_tool"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        android:background="#F8F8F8">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시험 결과 확인"
+            android:textSize="22sp"
+            android:fontFamily="@font/seoul_namsan"
+            tools:targetApi="jelly_bean"
+            android:textColor="#272727"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/showresult_line"
+        android:layout_below="@+id/showresult_tool"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#474747"
+        android:orientation="horizontal"/>
+    
+    <ScrollView
+        android:layout_below="@+id/showresult_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/showresult_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시험 이름"
+                android:fontFamily="@font/seoul_namsan"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="25dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#242424"/>
+
+            <LinearLayout
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시작 시간 : "
+                    android:textSize="15sp"
+                    android:fontFamily="@font/seoul_namsan"/>
+
+                <TextView
+                    android:id="@+id/showresult_starttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="2019년 8월 1일 오후 4시 10분"
+                    android:fontFamily="@font/seoul_namsan"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="종료 시간 : "
+                    android:fontFamily="@font/seoul_namsan"/>
+
+                <TextView
+                    android:id="@+id/showresult_endtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="2019년 8월 1일 오후 4시 10분"
+                    android:fontFamily="@font/seoul_namsan"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8F8F8F"
+                android:layout_marginBottom="20dp"/>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginLeft="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시험 항목"
+                    android:textSize="19sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/seoul_namsan"/>
+
+                <TextView
+                    android:layout_marginRight="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시험 결과"
+                    android:textSize="19sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/seoul_namsan"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/showresult_recyclerview"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:targetApi="lollipop" />
+
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8F8F8F"
+                android:layout_marginBottom="15dp"/>
+
+            <RelativeLayout
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginLeft="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="총 시간"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/seoul_namsan"/>
+
+                <TextView
+                    android:id="@+id/showresult_totaltime"
+                    android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="180분"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/seoul_namsan"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/showresult_goback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="돌아가기"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/seoul_namsan"/>
+
+    </LinearLayout>
+        
+    </ScrollView>
+
+</RelativeLayout>
