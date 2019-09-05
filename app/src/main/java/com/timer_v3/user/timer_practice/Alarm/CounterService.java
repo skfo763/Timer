@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.google.cloud.audit.AuditLogOrBuilder;
 import com.timer_v3.user.timer_practice.ICounterInterface;
 import com.timer_v3.user.timer_practice.R;
 
@@ -23,6 +25,7 @@ public class CounterService extends Service {
 
     private boolean isStop, check_alarm, check_sound, check_vibrate;
     private long count;
+    private AudioManager audioManager;
     long[] vibrates = {1000};
 
     ICounterInterface.Stub binder = new ICounterInterface.Stub() {
@@ -41,6 +44,7 @@ public class CounterService extends Service {
         check_alarm = intent.getBooleanExtra("alarm", true);
         check_sound = intent.getBooleanExtra("sound", false);
         check_vibrate = intent.getBooleanExtra("vibrate", false);
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         Thread counter = new Thread(new Counter(((target - now)/1000)-1, testname, title));
         counter.start();
@@ -95,14 +99,16 @@ public class CounterService extends Service {
                         .setContentTitle("시험 종료 알림")
                         .setContentText(testname.concat(" : ").concat(inner_title).concat("(이)가 종료되었습니다!"))
                         .setAutoCancel(true)
-                        .setPriority(Notification.PRIORITY_HIGH);
+                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setVibrate(vibrates)
+                        .setSound(defaultSoundUri);
 
         if(check_sound) {
-            notificationBuilder.setSound(defaultSoundUri);
+            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
 
         if(check_vibrate) {
-            notificationBuilder.setVibrate(vibrates);
+            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
 
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

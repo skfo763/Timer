@@ -131,6 +131,8 @@ public class TimerFrgament extends android.support.v4.app.Fragment {
                     second.setText("00");
 
                 } else {
+                    play.setBackgroundResource(R.drawable.ic_play_circle_outline_black_24dp);
+                    pause.setBackgroundResource(R.drawable.ic_pause_circle_outline_black_24dp);
                     minute.setText(String.valueOf(Objects.requireNonNull(getArguments().get("time"))));
                     second.setText("00");
                 }

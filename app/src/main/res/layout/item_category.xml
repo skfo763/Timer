@@ -18,9 +18,11 @@
         android:fontFamily="@font/seoul_namsan" />
 
     <LinearLayout
+        android:id="@+id/item_category_line"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0.75dp"
-        android:background="#8F8F8F"/>
+        android:background="#8F8F8F"
+        android:orientation="horizontal" />
 
 </RelativeLayout>

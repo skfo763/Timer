@@ -26,8 +26,21 @@ public class SplashActivity extends AppCompatActivity {
         if(ninfo == null) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SplashActivity.this);
             alertDialog.setTitle("네트워크 연결 안내")
-                    .setMessage("네트워크 연결이 감지되지 않습니다. WIFI 혹은 데이터 환경에서 이용해주세요. 종료하시겠습니까?")
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    .setMessage("네트워크 연결이 감지되지 않습니다. 직접 설정한 시간표만 이용하실 수 있습니다. 계속 이용하시겠습니까?")
+                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                    intent.putExtra("networkState", false);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }, 2000);
+                        }
+                    }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -39,6 +52,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("networkState", true);
                     startActivity(intent);
                     finish();
                 }

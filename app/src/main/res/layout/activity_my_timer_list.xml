@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".MyTimer.MyTimerListActivity"
     xmlns:ads="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-        android:id="@+id/main_tool"
+        android:id="@+id/mytimer_tool"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical"
-        android:background="#f8f8f8">
+        android:background="#F8F8F8">
 
         <TextView
             android:layout_centerHorizontal="true"
@@ -26,23 +26,33 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/main_line"
-        android:layout_below="@+id/main_tool"
+        android:id="@+id/mytimer_line"
+        android:layout_below="@+id/mytimer_tool"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#474747"
         android:orientation="horizontal"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recyclerview"
-        android:layout_below="@+id/main_line"
-        android:layout_above="@id/main_line2"
+        android:id="@+id/mytimer_recyclerview"
+        android:layout_below="@+id/mytimer_line"
+        android:layout_above="@id/mytimer_line2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/mytimer_add"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@id/mytimer_line2"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_add_circle_black_24dp"/>
+
     <LinearLayout
-        android:id="@+id/main_line2"
-        android:layout_above="@+id/main_adview"
+        android:id="@+id/mytimer_line2"
+        android:layout_above="@+id/mytimer_adview"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#474747"
@@ -50,7 +60,7 @@
 
     <com.google.android.gms.ads.AdView
         android:background="#9E9E9E"
-        android:id="@+id/main_adview"
+        android:id="@+id/mytimer_adview"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"
