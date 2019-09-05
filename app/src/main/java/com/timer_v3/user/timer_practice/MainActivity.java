@@ -1,8 +1,10 @@
 package com.timer_v3.user.timer_practice;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.timer_v3.user.timer_practice.MyTimer.MyTimerListActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         category_data.add("나만의 시험 시간표");
-                        for (DocumentSnapshot snapshot : task.getResult()) {
-                            if (snapshot.exists()) {
-                                category_data.add(snapshot.getId());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult())) {
+                                if (snapshot.exists()) {
+                                    category_data.add(snapshot.getId());
+                                }
                             }
                         }
                         if (!category_data.isEmpty()) {
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
             ((CustomViewHolder)viewHolder).textView.setText(c_data.get(i));
             if(c_data.get(i).equals("나만의 시험 시간표")) {
                 ((CustomViewHolder)viewHolder).textView.setTypeface(((CustomViewHolder)viewHolder).textView.getTypeface(), Typeface.BOLD);
@@ -107,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("document_id", c_data.get(i));
                         startActivity(intent, options.toBundle());
                     } else {
-                        Intent intent = new Intent(MainActivity.this, My
-                    }TimerListActivity.class);
-                    startActivity(intent, options.toBundle());
+                        Intent intent = new Intent(MainActivity.this, MyTimerListActivity.class);
+                        startActivity(intent, options.toBundle());
+                    }
                 }
             });
         }
