@@ -1,8 +1,9 @@
-package com.timer_v3.user.timer_practice;
+package com.timer_v3.user.timer_practice.MyTimer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,109 +13,143 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.timer_v3.user.timer_practice.Alarm.StartTimerActivity;
-import com.timer_v3.user.timer_practice.MyTimer.AddMyCategoryActivity;
+import com.timer_v3.user.timer_practice.CustomTestHolder;
+import com.timer_v3.user.timer_practice.R;
+import com.timer_v3.user.timer_practice.SetTimerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SetTimerActivity extends AppCompatActivity {
-
-    String document_id;
-    String each_test_id;
+public class SetMyTimerActivity extends AppCompatActivity {
+    
+    private TextView testTime, uploadTime, operator, alarmState;
     private AdView adView;
     private TextView title, alltime;
-    private Button start;
+    private Button start, revise;
     private RecyclerView recyclerView;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<String> category_data = new ArrayList<>();
-    ArrayList<Integer> time_data = new ArrayList<>();
-    public int allint = 0;
+    private int CID, totaltime;
+    private SQLiteHelper helper;
+    private CategoryData cat_data;
+    private List<TestData> test_data;
+    public ArrayList<String> data = new ArrayList<>();
+    public ArrayList<Integer> time_data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_timer);
+        setContentView(R.layout.activity_set_my_timer);
+        CID = getIntent().getIntExtra("CID", -1);
+        helper = SQLiteHelper.getInstance(SetMyTimerActivity.this);
+        totaltime = 0;
 
-        document_id = getIntent().getStringExtra("document_id");
-        each_test_id = getIntent().getStringExtra("each_test_id");
+        testTime = findViewById(R.id.set_mytimer_testtime);
+        uploadTime = findViewById(R.id.set_mytimer_uploadtime);
+        operator = findViewById(R.id.set_mytimer_operator);
+        alarmState = findViewById(R.id.set_mytimer_alarmstate);
 
-        adView = findViewById(R.id.settimer_adview);
-        title = findViewById(R.id.settimer_title);
-        alltime = findViewById(R.id.settimer_alltime);
-        start = findViewById(R.id.settimer_start);
-        recyclerView = findViewById(R.id.settimer_recyclerview);
+        adView = findViewById(R.id.set_mytimer_adview);
+        title = findViewById(R.id.set_mytimer_title);
+        alltime = findViewById(R.id.set_mytimer_alltime);
+        start = findViewById(R.id.set_mytimer_start);
+        recyclerView = findViewById(R.id.set_mytimer_recyclerview);
+        revise = findViewById(R.id.set_mytimer_revise);
 
         AdRequest request = new AdRequest.Builder().build();
         adView.loadAd(request);
 
-        title.setText(each_test_id);
+        if(CID == -1) {
+            execeptionHandler();
+        } else {
+            cat_data = helper.searchEachCategory(CID);
 
-        db.collection("tests").document(document_id).collection("each_test")
-                .document(each_test_id).collection("category")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    for(DocumentSnapshot snapshot : task.getResult()) {
-                        int temp_time = Integer.parseInt(snapshot.get("time").toString());
-                        category_data.add(snapshot.getId());
-                        time_data.add(temp_time);
-                        allint += temp_time;
-                    }
+            UISetting();
+            test_data = helper.searchEachTest(cat_data.getCID());
 
-                    if(!category_data.isEmpty()) {
-                        alltime.setText(String.valueOf(allint));
-                        recyclerView.setLayoutManager(new LinearLayoutManager(SetTimerActivity.this));
-                        recyclerView.setAdapter(new MySetTimerAdapter(category_data, time_data));
-                    }
+            for(int i=0; i<test_data.size(); i++) {
+                data.add(test_data.get(i).getTitle());
+                time_data.add(test_data.get(i).getTime());
+                totaltime += test_data.get(i).getTime();
+            }
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(SetMyTimerActivity.this));
+            recyclerView.setAdapter(new SetMyTestAdapter());
+            alltime.setText(String.valueOf(totaltime));
+
+            start.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SetMyTimerActivity.this, StartTimerActivity.class);
+                    intent.putExtra("test_name", cat_data.getTitle());
+                    intent.putIntegerArrayListExtra("time_data", time_data);
+                    intent.putStringArrayListExtra("category_data", data);
+                    startActivity(intent);
+                    finish();
                 }
-            }
-        });
+            });
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SetTimerActivity.this, StartTimerActivity.class);
-                intent.putExtra("test_name", each_test_id);
-                intent.putIntegerArrayListExtra("time_data", time_data);
-                intent.putStringArrayListExtra("category_data", category_data);
-                startActivity(intent);
-                finish();
-            }
-        });
+            revise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SetMyTimerActivity.this, AddMyCategoryActivity.class);
+                    intent.putExtra("CID", CID);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
     }
 
-    private class MySetTimerAdapter extends RecyclerView.Adapter {
-        ArrayList<String> data;
-        ArrayList<Integer> time_data;
-        public MySetTimerAdapter(ArrayList<String> category_data, ArrayList<Integer> time_data) {
-            this.data = category_data;
-            this.time_data = time_data;
-        }
 
+    private void UISetting() {
+        title.setText(cat_data.getTitle());
+        testTime.setText(cat_data.getTTime());
+        uploadTime.setText(cat_data.getUTime());
+        operator.setText(cat_data.getOperator());
+
+        if(cat_data.getalarmState() == 0) {
+            alarmState.setText("아니오");
+        } else {
+            alarmState.setText("예");
+        }
+    }
+
+    private void execeptionHandler() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetMyTimerActivity.this);
+        alertDialog.setTitle("시험 정보를 불러올 수 없습니다. 뒤로 가시겠습니까?")
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
+    }
+
+    private class SetMyTestAdapter extends RecyclerView.Adapter {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View view  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_test_category, viewGroup, false);
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_test_category, viewGroup, false);
             return new CustomTestHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
-            ((CustomTestHolder)viewHolder).time.setText(String.valueOf(time_data.get(i)));
             ((CustomTestHolder)viewHolder).title.setText(data.get(i));
+            ((CustomTestHolder)viewHolder).time.setText(String.valueOf(time_data.get(i)));
+            ((CustomTestHolder)viewHolder).checkBox.setChecked(true);
 
             ((CustomTestHolder)viewHolder).timeup.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -160,8 +195,8 @@ public class SetTimerActivity extends AppCompatActivity {
             ((CustomTestHolder)viewHolder).time_minute.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    final EditText edittext = new EditText(SetTimerActivity.this);
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetTimerActivity.this);
+                    final EditText edittext = new EditText(SetMyTimerActivity.this);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetMyTimerActivity.this);
                     alertDialog.setTitle("시간을 입력해 주세요\n예) 15, 65, 100")
                             .setView(edittext)
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -179,8 +214,8 @@ public class SetTimerActivity extends AppCompatActivity {
             ((CustomTestHolder)viewHolder).time.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final EditText edittext = new EditText(SetTimerActivity.this);
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetTimerActivity.this);
+                    final EditText edittext = new EditText(SetMyTimerActivity.this);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetMyTimerActivity.this);
                     alertDialog.setTitle("시간을 입력해 주세요\n예) 15, 65, 100")
                             .setView(edittext)
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {

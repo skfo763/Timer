@@ -20,16 +20,19 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.timer_v3.user.timer_practice.MainActivity;
 import com.timer_v3.user.timer_practice.R;
+import com.timer_v3.user.timer_practice.SetTimerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyTimerListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private AdView adView;
     public SQLiteHelper helper;
-    private ArrayList<CategoryData> cat_data;
+    private List<CategoryData> cat_data = new ArrayList<>();
     private ImageButton add;
 
     @Override
@@ -55,16 +58,10 @@ public class MyTimerListActivity extends AppCompatActivity {
 
         cat_data = helper.searchCategory();
         recyclerView.setLayoutManager(new LinearLayoutManager(MyTimerListActivity.this));
-        recyclerView.setAdapter(new MyTimerListAdapter(cat_data));
+        recyclerView.setAdapter(new MyTimerListAdapter());
     }
 
     private class MyTimerListAdapter extends RecyclerView.Adapter {
-        private ArrayList<CategoryData> data;
-
-        public MyTimerListAdapter(ArrayList<CategoryData> cat_data) {
-            data = cat_data;
-        }
-
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -74,16 +71,14 @@ public class MyTimerListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-            ((CustomCatHolder)viewHolder).textview.setText(data.get(i).getTitle());
+            final ActivityOptions options = ActivityOptions.makeCustomAnimation(MyTimerListActivity.this, R.anim.fromright, R.anim.toleft);
+
+            ((CustomCatHolder)viewHolder).textview.setText(cat_data.get(i).getTitle());
             ((CustomCatHolder)viewHolder).itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent;
-                            ActivityOptions options = ActivityOptions.makeCustomAnimation(MyTimerListActivity.this, R.anim.fromright, R.anim.toleft);
-                            intent = new Intent(MyTimerListActivity.this, ShowMyTestListActivity.class);
-                            intent.putExtra("CID", data.get(i).getCID());
-                            intent.putExtra("category_name", data.get(i).getTitle());
-                            intent.putExtra("upload_time", data.get(i).getUTime());
+                            Intent intent = new Intent(MyTimerListActivity.this, SetMyTimerActivity.class);
+                            intent.putExtra("CID", cat_data.get(i).getCID());
                             startActivity(intent, options.toBundle());
                         }
                     });
@@ -91,7 +86,7 @@ public class MyTimerListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return data.size();
+            return cat_data.size();
         }
 
         private class CustomCatHolder extends RecyclerView.ViewHolder {

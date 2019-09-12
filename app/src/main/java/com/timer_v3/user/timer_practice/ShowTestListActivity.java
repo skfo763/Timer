@@ -28,6 +28,7 @@ public class ShowTestListActivity extends AppCompatActivity {
 
     private RecyclerView testRec;
     private AdView adview;
+    private TextView title;
     String document_id;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<String> each_test_data = new ArrayList<>();
@@ -39,9 +40,12 @@ public class ShowTestListActivity extends AppCompatActivity {
         document_id = getIntent().getStringExtra("document_id");
         testRec = findViewById(R.id.showtestlist_recyclerview);
         adview = findViewById(R.id.showtestlist_adview);
+        title = findViewById(R.id.showtestlist_title);
 
         AdRequest request = new AdRequest.Builder().build();
         adview.loadAd(request);
+
+        title.setText(document_id);
 
         db.collection("tests").document(document_id).collection("each_test").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -85,6 +89,7 @@ public class ShowTestListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(ShowTestListActivity.this, SetTimerActivity.class);
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(ShowTestListActivity.this, R.anim.fromright, R.anim.toleft);
+                    intent.putExtra("type_of_call", 0);
                     intent.putExtra("document_id", document_id);
                     intent.putExtra("each_test_id", inner_data.get(i));
                     startActivity(intent, options.toBundle());

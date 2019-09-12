@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         MobileAds.initialize(this, "ca-app-pub-2826122867888366~9567916066");
 
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo ninfo = cm.getActiveNetworkInfo();
 
         if(ninfo == null) {

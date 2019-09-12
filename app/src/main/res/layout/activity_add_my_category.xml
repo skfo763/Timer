@@ -1,9 +1,442 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyTimer.AddMyCategoryActivity">
+    tools:context=".MyTimer.AddMyCategoryActivity"
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/add_cat_tool"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        android:background="#f8f8f8"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="타이머 추가하기"
+            android:textSize="21sp"
+            android:fontFamily="@font/seoul_namsan"
+            android:textColor="#272727"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/add_cat_line"
+        android:layout_below="@+id/add_cat_tool"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#474747"
+        android:orientation="horizontal"/>
+
+    <ScrollView
+        android:layout_below="@id/add_cat_line"
+        android:layout_above="@+id/add_cat_line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/round_button"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="시험 이름 :"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/seoul_namsan"
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/add_cat_titletext"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="주관 기관 :"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/seoul_namsan"
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/add_cat_operatortext"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/add_cat_datetext"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="시험 날짜 :"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/seoul_namsan"
+                        android:textColor="#000000" />
+
+                    <EditText
+                        android:id="@+id/add_cat_dateEditText"
+                        android:layout_toLeftOf="@+id/add_cat_dateButton"
+                        android:layout_toRightOf="@id/add_cat_datetext"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"/>
+
+                    <ImageButton
+                        android:id="@+id/add_cat_dateButton"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/ic_date_range_black_24dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="7.5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/add_cat_radiotext"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="시험 알림 수신 : "
+                        android:textSize="16sp"
+                        android:fontFamily="@font/seoul_namsan"
+                        android:textColor="#000000"
+                        android:gravity="center_vertical"/>
+
+                    <RadioGroup
+                        android:id="@+id/add_cat_radiogroup"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@id/add_cat_radiotext"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/add_cat_radioyes"
+                            android:textSize="14sp"
+                            android:layout_marginRight="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:text="예"/>
+
+                        <RadioButton
+                            android:id="@+id/add_cat_radiono"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="아니오"/>
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/round_button"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="개별 과목 설정"
+                    android:textSize="19sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/add_cat_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"/>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/add_cat_templayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/dash_border_line">
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/add_cat_temp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="과목 이름 :"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/seoul_namsan"
+                                android:textColor="#000000" />
+
+                            <EditText
+                                android:id="@+id/add_cat_testtitle"
+                                android:layout_marginLeft="10dp"
+                                android:textSize="13sp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/addcat_testtime"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="시험 시간 :"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/seoul_namsan"
+                                android:textColor="#000000" />
+
+                            <LinearLayout
+                                android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/addcat_testtime"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                                <ImageButton
+                                    android:id="@+id/addcat_test_timeup"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/ic_keyboard_arrow_up_black_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/addcat_test_time"
+                                    android:layout_marginLeft="25dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:fontFamily="@font/seoul_namsan"
+                                    android:textSize="17sp"/>
+
+                                <TextView
+                                    android:id="@+id/addcat_test_time_minute"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="분"
+                                    android:fontFamily="@font/seoul_namsan"
+                                    android:textSize="17sp"/>
+
+                                <ImageButton
+                                    android:id="@+id/addcat_test_timedown"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/add_cat_addTest"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ic_add_circle_black_24dp"
+                            android:backgroundTint="#B3B3B3"/>
+
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/seoul_namsan"
+                            android:text="과목 추가하기"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/addcat_layout_rev"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/add_cat_revise"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_button2"
+                    android:backgroundTint="#84FF84"
+                    android:text="수정 완료"
+                    android:fontFamily="@font/seoul_namsan"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <Button
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/add_cat_delete"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_button2"
+                    android:backgroundTint="#FF796F"
+                    android:text="삭제하기"
+                    android:fontFamily="@font/seoul_namsan"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_cat_confirm"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_button2"
+                android:text="시험 추가"
+                android:fontFamily="@font/seoul_namsan"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/add_cat_line2"
+        android:layout_above="@+id/add_cat_adview"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#474747"
+        android:orientation="horizontal"/>
+    
+    <com.google.android.gms.ads.AdView
+        android:background="#9E9E9E"
+        android:id="@+id/add_cat_adview"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-2826122867888366/7164442525"/>
+
+    <LinearLayout
+        android:id="@+id/add_cat_waiting"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#aa000000">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

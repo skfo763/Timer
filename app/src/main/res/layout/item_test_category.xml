@@ -4,13 +4,13 @@
     android:layout_height="60dp">
 
     <CheckBox
+        android:visibility="visible"
         android:id="@+id/item_test_checkbox"
         android:checked="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_height="40dp" />
 
     <TextView
         android:id="@+id/item_test_title"
@@ -27,7 +27,6 @@
 
     <LinearLayout
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/cat_area_left"
         android:orientation="horizontal"
         android:layout_alignParentRight="true"

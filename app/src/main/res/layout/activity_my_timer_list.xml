@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Real 타이머"
+            android:text="내 시험 추가하기"
             android:textSize="21sp"
             android:fontFamily="@font/seoul_namsan"
             android:textColor="#272727"/>
@@ -42,10 +42,10 @@
 
     <ImageButton
         android:id="@+id/mytimer_add"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_above="@id/mytimer_line2"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_add_circle_black_24dp"/>

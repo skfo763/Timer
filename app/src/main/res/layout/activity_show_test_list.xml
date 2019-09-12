@@ -15,14 +15,15 @@
         android:background="#F8F8F8">
 
         <TextView
-            android:layout_centerHorizontal="true"
+            android:id="@+id/showtestlist_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Real 타임 체크"
-            android:textSize="22sp"
+            android:layout_centerHorizontal="true"
             android:fontFamily="@font/seoul_namsan"
-            tools:targetApi="jelly_bean"
-            android:textColor="#272727"/>
+            android:text="시험 선택"
+            android:textColor="#272727"
+            android:textSize="22sp"
+            tools:targetApi="jelly_bean" />
 
     </RelativeLayout>
 

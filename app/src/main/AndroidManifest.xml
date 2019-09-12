@@ -15,8 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MyTimer.ShowMyTestListActivity"></activity>
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".MyTimer.SetMyTimerActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2826122867888366~9567916066" />
+
+        <activity android:name=".MyTimer.ShowMyTestListActivity" />
         <activity android:name=".MyTimer.AddMyCategoryActivity" />
         <activity android:name=".MyTimer.MyTimerListActivity" />
 
@@ -26,11 +31,6 @@
             android:exported="true" />
 
         <activity android:name=".Alarm.StartTimerActivity" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="Password(Blocked)"/>
-
         <activity android:name=".ShowResultActivity" />
         <activity android:name=".ShowTestListActivity" />
         <activity android:name=".SetTimerActivity" />
