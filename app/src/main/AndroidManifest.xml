@@ -15,13 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MyTimer.SetMyTimerActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="Password(Blocked)" />
+            android:value="ca-app-pub-2826122867888366~9567916066" />
 
-        <activity android:name=".MyTimer.ShowMyTestListActivity" />
+        <activity android:name=".MyTimer.SetMyTimerActivity"></activity>
         <activity android:name=".MyTimer.AddMyCategoryActivity" />
         <activity android:name=".MyTimer.MyTimerListActivity" />
 
